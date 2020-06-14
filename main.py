@@ -65,3 +65,4 @@ for height in range(225):
     for width in range(340):
         #array_4[height, width, 3] =
         pass
+
