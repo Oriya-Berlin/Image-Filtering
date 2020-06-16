@@ -7,16 +7,32 @@ height = 4
 
 # { ( [][][] ) , ( [][][] ) , ( [][][] ) , ( [][][] ) }  height, width, pixel
 array = np.zeros([height, width, 3], dtype=np.uint8)
-print(array)
+
+img_0 = Image.open('/home/berlin/Desktop/test0.png')
+data = np.asarray(img_0, dtype='int32')
+data[20][20] = [0, 0, 0]
+
+res = Image.fromarray(np.uint8(data))
+
+res.show()
+res.save('/home/berlin/Desktop/testtttt.png')
+
+
+print(data[0][0])
+print(data)
+
+#print(array)
 array[:, :] = [255, 128, 0]
-print(array)
+#print(array)
 
 
 img = Image.fromarray(array)
 img.save('/home/berlin/Desktop/test.png')
 
-# ----------------------------------------------------------------
 
+
+# ----------------------------------------------------------------
+"""
 array_2 = np.zeros([100, 200, 3], dtype=np.uint8)
 
 array_2[:, 0:100] = [150, 150, 150]
@@ -65,4 +81,4 @@ for height in range(225):
     for width in range(340):
         #array_4[height, width, 3] =
         pass
-
+"""
