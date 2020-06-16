@@ -6,13 +6,53 @@ import numpy as np
 from PIL import Image
 
 
-#
+# take a pixel with all the pixels around him and flat it to array
 def flat_matrix(matrix, x, y):  #need to take care that function: index out of bounds
     _list = []
     for i in range(x-1, x+2):
         for j in range(y-1, y+2):
             _list.append(matrix[i, j])
     return _list
+
+
+#
+def flat_matrix_frame(matrix, x, y):
+    height = len(matrix) - 1
+    width = len(matrix[0]) - 1
+    _list = []
+
+    if x == 0:
+        if y == 0:
+            pass
+        elif y == width:
+            pass  # real pass
+        else:
+            pass
+
+    if y == 0:
+        if x == 0:
+            pass  # real pass
+        elif x == height:
+            pass
+        else:
+            pass
+
+    if x == height:
+        if y == 0:
+            pass  # real pass
+        elif y == width:
+            pass
+        else:
+            pass
+
+    if y == width:
+        if x == height:
+            pass  # real pass
+        elif x == 0:
+            pass
+        else:
+            pass
+
 
 
 # return the median vector(RGB) in array of pixels, good for RGB scales
@@ -59,8 +99,8 @@ def clean_sp(img):
 
 im = Image.open('/home/berlin/Desktop/250.bmp')
 im = im.convert('RGB')
-x = clean_sp(im)
-x.show()
+#x = clean_sp(im)
+#x.show()
 
 """
 p = np.array([1,2,5])
@@ -96,3 +136,10 @@ for i in range(0, 3):
     for j in range(0, 5):
         print(array_22[i][j])
 """
+m = [ [ ['11'], ['12'], ['13'], ['14'] ],
+       [['21'], ['22'], ['23'], ['24'] ],
+       [['31'], ['32'], ['33'], ['34'] ] ]
+
+print(m[0][1])
+print(len(m[0]))
+
