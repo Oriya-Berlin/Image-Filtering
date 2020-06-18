@@ -1,6 +1,6 @@
 import numpy as np
 from PIL import Image
-
+from tests import flat_matrix_frame
 
 width = 8
 height = 4
@@ -14,20 +14,20 @@ data[20][20] = [0, 0, 0]
 
 res = Image.fromarray(np.uint8(data))
 
-res.show()
-res.save('/home/berlin/Desktop/testtttt.png')
+#res.show()
+#res.save('/home/berlin/Desktop/testtttt.png')
 
 
-print(data[0][0])
-print(data)
+#print(data[0][0])
+#print(data)
 
 #print(array)
 array[:, :] = [255, 128, 0]
 #print(array)
 
 
-img = Image.fromarray(array)
-img.save('/home/berlin/Desktop/test.png')
+#img = Image.fromarray(array)
+#img.save('/home/berlin/Desktop/test.png')
 
 
 
@@ -82,3 +82,34 @@ for height in range(225):
         #array_4[height, width, 3] =
         pass
 """
+test = [
+        [['1'],  ['2'],  ['3'],  ['4'],  ['5']],
+        [['6'],  ['7'],  ['8'],  ['9'],  ['10']],
+        [['11'], ['12'], ['13'], ['14'], ['15']],
+        [['16'], ['17'], ['18'], ['19'], ['20']],
+        [['21'], ['22'], ['23'], ['24'], ['25']]
+        ]
+height = len(test)
+width = len(test[0])
+test = np.array(test, dtype=np.int32)
+print('-----')
+
+for top in range(width):
+    #print(test[0][top])
+    x = flat_matrix_frame(test, 0, top)
+    print([l[0] for l in x])
+
+for left in range(1, height-1):
+    #print(test[left][0])
+    x = flat_matrix_frame(test, left, 0)
+    print([l[0] for l in x])
+
+for right in range(1, height-1):
+    #print(test[right][len(test[0])-1])
+    x = flat_matrix_frame(test, right, width-1)
+    print([l[0] for l in x])
+
+for bottom in range(width):
+    #print(test[len(test)-1][bottom])
+    x = flat_matrix_frame(test, height-1, bottom)
+    print([l[0] for l in x])

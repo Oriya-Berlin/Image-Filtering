@@ -95,6 +95,11 @@ def calculate_median_pixel(pixels_list):  # its need to return vector
     return median_pixel
 
 
+#
+def clean_frame_sp():
+    pass
+
+
 # return the median value in array, good for Grey scale
 def median(list):
     sorted_list = sorted(list)
@@ -102,16 +107,17 @@ def median(list):
     return sorted_list[n//2]
 
 
-# cleans salt and pepper noise
-def clean_sp(img):
+# cleans salt and pepper noise from the internal matrix except from the frame
+def clean_internal_sp(img):
 
     matrix = np.asarray(img, dtype='int32')
     clean_matrix = np.asarray(img, dtype='int32')
     size = clean_matrix.shape
     height, width = size[0], size[1]
 
+    # we need to change the matrix range
     for i in range(height):  # height
-        for j in range(width): #width
+        for j in range(width):  # width
             if all(clean_matrix[i][j] == np.array([0, 0, 0])) or all(clean_matrix[i][j] == np.array([255, 255, 255])):
 
                 small_matrix = flat_matrix(matrix, i, j)
@@ -164,6 +170,6 @@ m = [ [ ['11'], ['12'], ['13'], ['14'] ],
        [['21'], ['22'], ['23'], ['24'] ],
        [['31'], ['32'], ['33'], ['34'] ] ]
 
-print(m[0][1])
-print(len(m[0]))
+#print(m[0][1])
+#print(len(m[0]))
 
