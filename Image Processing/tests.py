@@ -21,38 +21,62 @@ def flat_matrix_frame(matrix, x, y):
     width = len(matrix[0]) - 1
     _list = []
 
+    # here we need to add the loops
+
     if x == 0:
         if y == 0:
-            pass
+            _list.append(matrix[x, y]), _list.append(matrix[x, y+1])
+            _list.append(matrix[x+1, y+1]), _list.append(matrix[x+1, y])
+            return _list
         elif y == width:
             pass  # real pass
         else:
-            pass
+            _list.append(matrix[x, y]), _list.append(matrix[x, y+1])
+            _list.append(matrix[x+1, y+1]), _list.append(matrix[x+1, y])
+            _list.append(matrix[x+1, y-1]), _list.append(matrix[x, y-1])
+            return _list
+
 
     if y == 0:
         if x == 0:
             pass  # real pass
         elif x == height:
-            pass
+            _list.append(matrix[x, y]), _list.append(matrix[x-1, y])
+            _list.append(matrix[x - 1, y + 1]), _list.append(matrix[x, y+1])
+            return _list
         else:
-            pass
+            _list.append(matrix[x, y]), _list.append(matrix[x-1, y])
+            _list.append(matrix[x-1, y+1]), _list.append(matrix[x, y+1])
+            _list.append(matrix[x+1, y+1]), _list.append(matrix[x+1, y])
+            return _list
+
 
     if x == height:
         if y == 0:
             pass  # real pass
         elif y == width:
-            pass
+            _list.append(matrix[x, y]), _list.append(matrix[x-1, y])
+            _list.append(matrix[x-1, y-1]), _list.append(matrix[x, y-1])
+            return _list
         else:
-            pass
+            _list.append(matrix[x, y]), _list.append(matrix[x, y-1])
+            _list.append(matrix[x-1, y-1]), _list.append(matrix[x-1, y])
+            _list.append(matrix[x-1, y+1]), _list.append(matrix[x, y+1])
+            return _list
+
 
     if y == width:
         if x == height:
             pass  # real pass
         elif x == 0:
-            pass
+            _list.append(matrix[x, y]), _list.append(matrix[x, y-1])
+            _list.append(matrix[x+1, y-1]), _list.append(matrix[x+1, y])
+            return _list
         else:
-            pass
-
+            _list.append(matrix[x, y]), _list.append(matrix[x+1, y])
+            _list.append(matrix[x+1, y-1]), _list.append(matrix[x, y-1])
+            _list.append(matrix[x-1, y-1]), _list.append(matrix[x-1, y])
+            return _list
 
 
 # return the median vector(RGB) in array of pixels, good for RGB scales
