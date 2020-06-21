@@ -1,6 +1,6 @@
 import numpy as np
 from PIL import Image
-from tests import flat_matrix_frame
+from tests import flat_matrix_frame, calculate_median_pixel
 
 width = 8
 height = 4
@@ -82,6 +82,11 @@ for height in range(225):
         #array_4[height, width, 3] =
         pass
 """
+
+
+# very good code to test the frame matrix function
+
+'''
 test = [
         [['1'],  ['2'],  ['3'],  ['4'],  ['5']],
         [['6'],  ['7'],  ['8'],  ['9'],  ['10']],
@@ -89,10 +94,12 @@ test = [
         [['16'], ['17'], ['18'], ['19'], ['20']],
         [['21'], ['22'], ['23'], ['24'], ['25']]
         ]
+
 height = len(test)
 width = len(test[0])
 test = np.array(test, dtype=np.int32)
-print('-----')
+
+
 
 for top in range(width):
     #print(test[0][top])
@@ -113,3 +120,8 @@ for bottom in range(width):
     #print(test[len(test)-1][bottom])
     x = flat_matrix_frame(test, height-1, bottom)
     print([l[0] for l in x])
+
+'''
+
+
+
