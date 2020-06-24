@@ -50,11 +50,11 @@ def color_filtering(img, color):
     filtered_img = Image.fromarray(np.uint8(matrix))
     return filtered_img
 
-
-my_img = Image.open('/home/berlin/Desktop/index.jpeg')
+'''
+my_img = Image.open('/home/berlin/PycharmProjects/Image Processing/images/index.jpeg')
 new_image = color_filtering(my_img, 'green')
 new_image.show()
-
+'''
 
 
 

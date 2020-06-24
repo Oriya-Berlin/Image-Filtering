@@ -1,13 +1,10 @@
-# put all relevant vectors on a list
-# make average for every component
-# calculate median for evey component
-# return vector that represent pixel
+
 import numpy as np
 from PIL import Image
 
 
 # take a pixel with all the pixels around him and flat it to array
-def flat_matrix(matrix, x, y):  #need to take care that function: index out of bounds
+def flat_matrix(matrix, x, y):
     _list = []
     for i in range(x-1, x+2):
         for j in range(y-1, y+2):
@@ -27,7 +24,7 @@ def flat_matrix_frame(matrix, x, y):
             _list.append(matrix[x+1, y+1]), _list.append(matrix[x+1, y])
             return _list
         elif y == width:
-            pass  # real pass
+            pass  #
         else:
             _list.append(matrix[x, y]), _list.append(matrix[x, y+1])
             _list.append(matrix[x+1, y+1]), _list.append(matrix[x+1, y])
@@ -36,7 +33,7 @@ def flat_matrix_frame(matrix, x, y):
 
     if y == 0:
         if x == 0:
-            pass  # real pass
+            pass  #
         elif x == height:
             _list.append(matrix[x, y]), _list.append(matrix[x-1, y])
             _list.append(matrix[x - 1, y + 1]), _list.append(matrix[x, y+1])
@@ -49,7 +46,7 @@ def flat_matrix_frame(matrix, x, y):
 
     if x == height:
         if y == 0:
-            pass  # real pass
+            pass  #
         elif y == width:
             _list.append(matrix[x, y]), _list.append(matrix[x-1, y])
             _list.append(matrix[x-1, y-1]), _list.append(matrix[x, y-1])
@@ -62,7 +59,7 @@ def flat_matrix_frame(matrix, x, y):
 
     if y == width:
         if x == height:
-            pass  # real pass
+            pass  #
         elif x == 0:
             _list.append(matrix[x, y]), _list.append(matrix[x, y-1])
             _list.append(matrix[x+1, y-1]), _list.append(matrix[x+1, y])
@@ -90,14 +87,14 @@ def calculate_median_pixel(pixels_list):
     return median_pixel
 
 
-# return the median value in array, good for Grey scale
+# return the median value in array, will work for Grey scales only
 def median(_list):
     sorted_list = sorted(_list)
     n = len(sorted_list)
     return sorted_list[n//2]
 
 
-# iterate only at he matrix frame, and clean the noises
+# iterate only at the matrix frame, and clean the noises
 def clean_frame_sp(matrix, height, width):
 
     for top in range(width):
@@ -155,8 +152,10 @@ def clean_sp(img):
 
     return cleaned_matrix
 
+'''
+img = Image.open('/home/berlin/PycharmProjects/Image Processing/images/cat.bmp')
+img = img.convert('RGB')
+clean_img = clean_sp(img)
+clean_img.show()
+'''
 
-im = Image.open('/home/berlin/Desktop/250.bmp')
-im = im.convert('RGB')
-xr = clean_sp(im)
-xr.show()

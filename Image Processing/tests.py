@@ -1,43 +1,71 @@
 
-
-"""
-p = np.array([1,2,5])
-x = np.array([1,2,3])
-print(all(p==x))
-
-# maybe the proble is with the small matrix calculation
-
-
-m = [[['11'], ['12'], ['13']],
-    [['21'], ['22'], ['23']],
-    [['31'], ['32'], ['33']]]
-
-print(len(m))
-for i in range(0, 3):
-    for j in range(0, 3):
-        print(m[i][j])
-
-
-#array[hight,width]
-# it will create white img with height 3 and width 5
-array_22 = np.zeros([3, 5, 3], dtype=np.uint8)
-array_22[0:3, 0:5] = [255]
-
-
-img = Image.fromarray(array_22)
-img.save('/home/berlin/Desktop/testim.png')
-print(len(array_22))
-print(len(array_22[0]))
-print(array_22)
-
-for i in range(0, 3):
-    for j in range(0, 5):
-        print(array_22[i][j])
-"""
 m = [ [ ['11'], ['12'], ['13'], ['14'] ],
        [['21'], ['22'], ['23'], ['24'] ],
        [['31'], ['32'], ['33'], ['34'] ] ]
 
-#print(m[0][1])
-#print(len(m[0]))
+'''
+test = [
+        [['1'],  ['2'],  ['3'],  ['4'],  ['5']],
+        [['6'],  ['7'],  ['8'],  ['9'],  ['10']],
+        [['11'], ['12'], ['13'], ['14'], ['15']],
+        [['16'], ['17'], ['18'], ['19'], ['20']],
+        [['21'], ['22'], ['23'], ['24'], ['25']]
+        ]
 
+height = len(test)
+width = len(test[0])
+test = np.array(test, dtype=np.int32)
+
+
+
+for top in range(width):
+    #print(test[0][top])
+    x = flat_matrix_frame(test, 0, top)
+    print([l[0] for l in x])
+
+for left in range(1, height-1):
+    #print(test[left][0])
+    x = flat_matrix_frame(test, left, 0)
+    print([l[0] for l in x])
+
+for right in range(1, height-1):
+    #print(test[right][len(test[0])-1])
+    x = flat_matrix_frame(test, right, width-1)
+    print([l[0] for l in x])
+
+for bottom in range(width):
+    #print(test[len(test)-1][bottom])
+    x = flat_matrix_frame(test, height-1, bottom)
+    print([l[0] for l in x])
+
+'''
+
+"""
+class Img:
+
+    def __init__(self, path):
+
+        self.path = path
+        self.img = Image.open(self.path)
+        self.width, self.height = self.img.size
+        self.matrix = self.img.load()
+
+    def get_width(self):
+        return self.width
+
+    def get_height(self):
+        return self.height
+
+    def show(self):
+        self.img.show()
+
+g = Img('/home/berlin/Desktop/index.jpeg')
+
+print(g.get_width())
+print(g.get_height())
+print(g.matrix[150,1])
+g.matrix[150,1] = (0,0,250)
+print(g.matrix[150,1])
+#g.show()
+
+"""
