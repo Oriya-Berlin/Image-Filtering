@@ -46,3 +46,12 @@ if __name__ == "__main__":
     inverted_image.show()
     '''
 
+    '''
+    img_6 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/dark.jpeg')
+    img_6.show()
+    corrected_image = set_gamma_correction(img_6, 5)
+    corrected_image.show()
+    '''
+
+
+

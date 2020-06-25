@@ -39,12 +39,12 @@ def set_gamma_correction(img, gamma_value=CONST_GAMMA):
     generated_image = Image.fromarray(np.uint8(matrix))
     return generated_image
 
-
+'''
 img_6 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/dark.jpeg')
 img_6.show()
 corrected_image = set_gamma_correction(img_6, 5)
 corrected_image.show()
-
+'''
 
 
 
