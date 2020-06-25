@@ -40,9 +40,6 @@ def set_contrast_1(img, contrast_value):
     size = matrix.shape
     height, width = size[0], size[1]
 
-    # if contrast_method not in contrasts:
-    #   raise Exception('')
-
     for i in range(0, height):
         for j in range(0, width):
 
@@ -56,8 +53,8 @@ def set_contrast_1(img, contrast_value):
 
             matrix[i][j] = [R, G, B]
 
-    matrix = Image.fromarray(np.uint8(matrix))
-    return matrix
+    image = Image.fromarray(np.uint8(matrix))
+    return image
 
 
 # -------------------------------------------------------------

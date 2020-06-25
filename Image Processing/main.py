@@ -29,14 +29,20 @@ if __name__ == "__main__":
     '''
 
     '''
-    my_img = Image.open('/home/berlin/PycharmProjects/Image Processing/images/index.jpeg')
-    my_img.show()
+    img_4 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/index.jpeg')
+    img_4.show()
     # the first formula
-    contrast_image_1 = set_contrast_1(my_img, 210)
+    contrast_image_1 = set_contrast_1(img_4, 210)
     contrast_image_1.show()
     # the second formula
-    contrast_image_2 = set_contrast_2(my_img, -20)
+    contrast_image_2 = set_contrast_2(img_4, -20)
     contrast_image_2.show()
     '''
 
+    '''
+    img_5 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/index.jpeg')
+    img_5.show()
+    inverted_image = set_invert(img_5)
+    inverted_image.show()
+    '''
 
