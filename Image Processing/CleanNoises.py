@@ -148,9 +148,9 @@ def clean_sp(img):
 
     clean_matrix = clean_internal_sp(clean_matrix, height, width)
     clean_matrix = clean_frame_sp(clean_matrix, height, width)
-    cleaned_matrix = Image.fromarray(np.uint8(clean_matrix))
+    cleaned_image = Image.fromarray(np.uint8(clean_matrix))
 
-    return cleaned_matrix
+    return cleaned_image
 
 '''
 img = Image.open('/home/berlin/PycharmProjects/Image Processing/images/cat.bmp')

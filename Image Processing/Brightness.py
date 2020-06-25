@@ -23,8 +23,8 @@ def set_brightness(img, brightness_value):
             if B < 0: B = 0
 
             matrix[i][j] = [R, G, B]
-    matrix = Image.fromarray(np.uint8(matrix))
-    return matrix
+    image = Image.fromarray(np.uint8(matrix))
+    return image
 
 
 '''

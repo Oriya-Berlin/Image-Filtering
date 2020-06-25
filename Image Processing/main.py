@@ -1,6 +1,7 @@
 from CleanNoises import *
 from ColorFiltering import *
 from Brightness import *
+from Contrasts import *
 
 
 if __name__ == "__main__":
@@ -27,5 +28,15 @@ if __name__ == "__main__":
     filtered_image.show()
     '''
 
+    '''
+    my_img = Image.open('/home/berlin/PycharmProjects/Image Processing/images/index.jpeg')
+    my_img.show()
+    # the first formula
+    contrast_image_1 = set_contrast_1(my_img, 210)
+    contrast_image_1.show()
+    # the second formula
+    contrast_image_2 = set_contrast_2(my_img, -20)
+    contrast_image_2.show()
+    '''
 
 
