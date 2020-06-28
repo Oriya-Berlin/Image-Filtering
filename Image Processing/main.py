@@ -2,6 +2,8 @@ from CleanNoises import *
 from ColorFiltering import *
 from Brightness import *
 from Contrasts import *
+from EdgeDetection import *
+from Invert import *
 
 
 if __name__ == "__main__":
@@ -52,6 +54,16 @@ if __name__ == "__main__":
     corrected_image = set_gamma_correction(img_6, 5)
     corrected_image.show()
     '''
+
+    '''
+    img_7 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/f2.jpg')
+    img_7.show()
+    edge_detected_image = edge_detection(img_7, 15)
+    edge_detected_image.show()
+    '''
+
+
+
 
 
 

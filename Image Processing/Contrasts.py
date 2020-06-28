@@ -7,7 +7,7 @@ from PIL import Image
 # factor formula:
 #    F = 259(C + 255) / 255(259 – C)
 # contrast adjustment:
-#    R’ = F(R-128) + 128
+#    R’ = F(RGB-128) + 128      / 'RGB' stand for one of the RGB component
 # -------------------------------------------------------------
 
 """
