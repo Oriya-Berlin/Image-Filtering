@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 
-#  i need to check if i can make one convolution to internal and matrix frame  with 'if None' [?]
+#  i need to check if i can make one convolution to internal and frame matrix  with 'if None' [?]
 def calculate_internal_convolution(original_matrix, kernel, i, j):
     new_RGB_vector = []
 
