@@ -62,6 +62,13 @@ if __name__ == "__main__":
     edge_detected_image.show()
     '''
 
+    '''
+    img_8 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/f1.jpg')
+    img_8.show()
+    #img_8 = img_8.convert('RGB')
+    filtered_image = image_filtering(img_8, kernel1)
+    filtered_image.show()
+    '''
 
 
 
