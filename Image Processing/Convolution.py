@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 
-#  i need to check if i can make one convolution to internal and frame matrix  with 'if None' [?]
+#  i need to check if i can make one convolution to internal and matrix frame  with 'if None' [?]
 def calculate_internal_convolution(original_matrix, kernel, i, j):
     new_RGB_vector = []
 
@@ -27,12 +27,168 @@ def calculate_internal_convolution(original_matrix, kernel, i, j):
 
     return new_RGB_vector
 
-
+# -----------------------------------------------------------------------------------------------
 # making convolution on matrix frame only
-def frame_convolution(matrix, kernel):
-    pass
+def frame_convolution(original_matrix, kernel):
+    height = len(original_matrix) - 1
+    width = len(original_matrix[0]) - 1
+    new_RGB_vector = []
+    _list = []
+
+    if x == 0:
+        if y == 0:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x][y+1][RGB] * kernel[1][2] + \
+                                original_matrix[x+1][j+1][RGB] * kernel[2][2] + \
+                                original_matrix[x+1][y][RGB] * kernel[2][1]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
+
+        elif y == width:
+            pass  #
+
+        else:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x][y+1][RGB] * kernel[1][2] + \
+                                original_matrix[x+1][y+1][RGB] * kernel[2][2] + \
+                                original_matrix[x+1][y][RGB] * kernel[2][1] + \
+                                original_matrix[x+1][y-1][RGB] * kernel[2][0] + \
+                                original_matrix[x][y-1][RGB] * kernel[1][0]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
 
 
+    if y == 0:
+        if x == 0:
+            pass  #
+        elif x == height:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x-1][y][RGB] * kernel[0][1] + \
+                                original_matrix[x-1][y+1][RGB] * kernel[0][2] + \
+                                original_matrix[x][y+1][RGB] * kernel[1][2]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
+
+        else:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x-1][y][RGB] * kernel[0][1] + \
+                                original_matrix[x-1][y+1][RGB] * kernel[0][2] + \
+                                original_matrix[x][y+1][RGB] * kernel[1][2] + \
+                                original_matrix[x+1][y+1][RGB] * kernel[2][2] + \
+                                original_matrix[x+1][y][RGB] * kernel[2][1]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
+
+    if x == height:
+        if y == 0:
+            pass  #
+        elif y == width:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x][y-1][RGB] * kernel[1][0] + \
+                                original_matrix[x-1][y-1][RGB] * kernel[0][0] + \
+                                original_matrix[x-1][y][RGB] * kernel[0][1]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
+
+        else:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x][y-1][RGB] * kernel[1][0] + \
+                                original_matrix[x-1][y-1][RGB] * kernel[0][0] + \
+                                original_matrix[x-1][y][RGB] * kernel[0][1] + \
+                                original_matrix[x-1][y+1][RGB] * kernel[0][2] + \
+                                original_matrix[x][y+1][RGB] * kernel[1][2]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
+    # DONE WELL
+    if y == width:
+        if x == height:
+            pass  #
+        elif x == 0:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x+1][y][RGB] * kernel[2][1] + \
+                                original_matrix[x+1][y-1][RGB] * kernel[2][0] + \
+                                original_matrix[x][y-1][RGB] * kernel[1][0]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
+
+        else:
+            for RGB in range(0, 3):
+                new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
+                                original_matrix[x+1][y][RGB] * kernel[2][1] + \
+                                original_matrix[x+1][y-1][RGB] * kernel[2][0] + \
+                                original_matrix[x][y-1][RGB] * kernel[1][0] + \
+                                original_matrix[x-1][y-1][RGB] * kernel[0][0] + \
+                                original_matrix[x-1][y][RGB] * kernel[0][1]
+
+                if new_RGB_value > 255:
+                    new_RGB_value = 255
+
+                if new_RGB_value < 0:
+                    new_RGB_value = 0
+
+                new_RGB_vector.append(new_RGB_value)
+            return new_RGB_vector
+
+    return # the matrix copy
+
+
+# -----------------------------------------------------------------------------------------------
 # making convolution on internal n-1 * m-1 matrix
 def internal_convolution(original_matrix, kernel, height, width, new_matrix):  # kernel(matrix) == filter
 
