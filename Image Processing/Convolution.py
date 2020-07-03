@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 
-#  i need to check if i can make one convolution to internal and matrix frame  with 'if None' [?]
+#  will calculate the convolution for every pixel in the internal matrix [n-1 on m-1]
 def calculate_internal_convolution(original_matrix, kernel, i, j):
     new_RGB_vector = []
 
@@ -27,20 +27,19 @@ def calculate_internal_convolution(original_matrix, kernel, i, j):
 
     return new_RGB_vector
 
-# -----------------------------------------------------------------------------------------------
-# making convolution on matrix frame only
-def frame_convolution(original_matrix, kernel):
+
+# will calculate the convolution on matrix frame only
+def calculate_frame_convolution(original_matrix, kernel, x, y):
     height = len(original_matrix) - 1
     width = len(original_matrix[0]) - 1
     new_RGB_vector = []
-    _list = []
 
     if x == 0:
         if y == 0:
             for RGB in range(0, 3):
                 new_RGB_value = original_matrix[x][y][RGB] * kernel[1][1] + \
                                 original_matrix[x][y+1][RGB] * kernel[1][2] + \
-                                original_matrix[x+1][j+1][RGB] * kernel[2][2] + \
+                                original_matrix[x+1][y+1][RGB] * kernel[2][2] + \
                                 original_matrix[x+1][y][RGB] * kernel[2][1]
 
                 if new_RGB_value > 255:
@@ -147,7 +146,7 @@ def frame_convolution(original_matrix, kernel):
 
                 new_RGB_vector.append(new_RGB_value)
             return new_RGB_vector
-    # DONE WELL
+
     if y == width:
         if x == height:
             pass  #
@@ -185,17 +184,36 @@ def frame_convolution(original_matrix, kernel):
                 new_RGB_vector.append(new_RGB_value)
             return new_RGB_vector
 
-    return # the matrix copy
 
-
-# -----------------------------------------------------------------------------------------------
-# making convolution on internal n-1 * m-1 matrix
-def internal_convolution(original_matrix, kernel, height, width, new_matrix):  # kernel(matrix) == filter
+# iterate and making convolution on internal n-1 on m-1 matrix
+def iterate_internal_matrix(original_matrix, kernel, height, width, new_matrix):  # kernel(matrix) == filter
 
     for i in range(1, height-1):
         for j in range(1, width-1):
             new_RGB_vector = calculate_internal_convolution(original_matrix, kernel, i, j)
             new_matrix[i][j] = new_RGB_vector
+
+    return new_matrix
+
+
+# iterate and making convolution on on the matrix frame
+def iterate_frame_matrix(original_matrix, kernel, height, width, new_matrix):
+
+    for top in range(width):
+        new_RGB_vector = calculate_frame_convolution(original_matrix, kernel, 0, top)
+        new_matrix[0][top] = new_RGB_vector
+
+    for left in range(1, height - 1):
+        new_RGB_vector = calculate_frame_convolution(original_matrix, kernel, left, 0)
+        new_matrix[left][0] = new_RGB_vector
+
+    for right in range(1, height - 1):
+        new_RGB_vector = calculate_frame_convolution(original_matrix, kernel, right, width-1)
+        new_matrix[right][width-1] = new_RGB_vector
+
+    for bottom in range(width):
+        new_RGB_vector = calculate_frame_convolution(original_matrix, kernel, height-1, bottom)
+        new_matrix[height-1][bottom] = new_RGB_vector
 
     return new_matrix
 
@@ -207,8 +225,8 @@ def image_filtering(img, filter):
     new_matrix = original_matrix.copy()
     size = original_matrix.shape
     height, width = size[0], size[1]
-    new_matrix = internal_convolution(original_matrix, filter, height, width, new_matrix)
-
+    new_matrix = iterate_internal_matrix(original_matrix, filter, height, width, new_matrix)
+    new_matrix = iterate_frame_matrix(original_matrix, filter, height, width, new_matrix)
     image = Image.fromarray(np.uint8(new_matrix))
     return image
 
