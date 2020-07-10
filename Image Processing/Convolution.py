@@ -218,8 +218,18 @@ def iterate_frame_matrix(original_matrix, kernel, height, width, new_matrix):
     return new_matrix
 
 
+# filters to choose
+filters = {'sharpen': [[0, -1, 0], [-1, 5, -1], [0, -1, 0]],
+           'blur': [[0.0625, 0.125, 0.0625], [0.125, 0.25, 0.125], [0.0625, 0.125, 0.0625]]}
+
+
 #  this function will get filter(kernel matrix), and return, filtered image
 def image_filtering(img, filter):
+
+    if filter not in filters.keys():
+        raise Exception('filter must be one of: sharpen / blur')
+    else:
+        filter = filters.get(filter)
 
     original_matrix = np.asarray(img, dtype='int32')
     new_matrix = original_matrix.copy()
@@ -231,15 +241,13 @@ def image_filtering(img, filter):
     return image
 
 
-#  test
-kernel1 = [[0, -1, 0],
-           [-1, 5, -1],
-           [0, -1, 0]]
-
 '''
 img_8 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/f1.jpg')
 img_8.show()
 #img_8 = img_8.convert('RGB')
-filtered_image = image_filtering(img_8, kernel1)
+filtered_image = image_filtering(img_8, 'blur')
+filtered_image.show()
+
+filtered_image = image_filtering(img_8, 'sharpen')
 filtered_image.show()
 '''
