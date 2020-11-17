@@ -1,13 +1,13 @@
 from tkinter import *
 from tkinter import filedialog
 from App.Classes.ImageHandler import ImageHandler
-from App.Controller.Controller import browse_image
+# from App.Controller.Controller import browse_image
 from PIL import Image
 from PIL import ImageTk
 
 
 # we need to call that view
-class App:
+class App():
 
     def __init__(self):
 
@@ -30,7 +30,7 @@ class App:
 
         ################## BOTTOM GRID ##################
         bottom_grid = Frame(self.root)
-        browse_button = Button(bottom_grid, text="Browse...", command=lambda: browse_image()).grid(row=1, column=0, sticky=W)
+        browse_button = Button(bottom_grid, text="Browse...", command=lambda: self.browse_image()).grid(row=1, column=0, sticky=W)
         save_button = Button(bottom_grid, text="Save", command=None).grid(row=1, column=2, sticky=W)
         exit_button = Button(bottom_grid, text="Exit", command=self.root.quit).grid(row=1, column=3, sticky=W)
         bottom_grid.pack(side=BOTTOM)
@@ -65,12 +65,40 @@ class App:
         self.image_url = image_url
 
     def set_image_holder_label(self):
-        return self.root
+        print("hhhhhhhhhhhhhhhhhhhhhhhhhhhh2")
+
+        url_test = '/home/berlin/Desktop/Image-Filtering/images/cat.bmp'
+        self.selected_image = ImageTk.PhotoImage(Image.open(url_test))
+        self.image_holder_label = Label(self.center_grid, image=self.selected_imag)  #  self.selected_imag
+
+        self.center_grid.destroy()
+        center_grid = Frame(self.root)
+        img1 = PhotoImage(file="url_test")
+        self.image_holder_label = Label(self.center_grid, image=img1)
+        print("hhhhhhhhhhhhhhhhhhhhhhhhhhhh4")
+        self.root.destroy()
+        self.refresh()
+
 
     def runApp(self):
         self.root.mainloop()
 
+    def refresh(self):
+        self.destroy()
+        self.__init__()
 
+
+
+    def browse_image(self):
+        file_path = filedialog.askopenfilename()
+        if file_path != "":
+
+            url_test = '/home/berlin/Desktop/Image-Filtering/images/cat.bmp'
+
+            self.selected_image = ImageTk.PhotoImage(Image.open(url_test))
+            self.image_holder_label = Label(self.center_grid, image=self.selected_image)
+            self.image_holder_label.configure(image=self.selected_image)
+            self.root.configure()
 
 
 

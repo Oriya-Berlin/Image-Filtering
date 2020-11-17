@@ -59,6 +59,10 @@ def main():
     center_grid = Frame(root)
     selected_image = ImageTk.PhotoImage(Image.open("/home/berlin/Desktop/Image-Filtering/images/f1.jpg"))
     image_holder_label = Label(center_grid, image=selected_image)
+    import time
+    time.sleep(6)
+    selected_image = ImageTk.PhotoImage(Image.open("/home/berlin/Desktop/Image-Filtering/images/f2.jpg"))
+    image_holder_label = Label(center_grid, image=selected_image)
     image_holder_label.grid(row=4, column=3, pady=120)
     center_grid.pack(side=TOP)
 

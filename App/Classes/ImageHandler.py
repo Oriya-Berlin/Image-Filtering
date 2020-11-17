@@ -5,6 +5,8 @@ from PIL import Image
 # this class will hold all image manipulation functions
 class ImageHandler:
 
+
+
     def __init__(self, url):
         self.url = url
         self.image = Image.open(url)
