@@ -3,8 +3,10 @@ import PIL.ImageTk
 from tkinter import *
 from tkinter import filedialog
 
-from PIL import ImageTk
+from App.Filters.Invert import *
+from App.Filters.CleanNoises import clean_sp
 
+from App.View.RequestWindow import RequestWindow
 from App.Classes.ImageHandler import ImageHandler
 
 
@@ -19,8 +21,7 @@ class App(Frame):
     def __init__(self):
         Frame.__init__(self)
         self.master.title('Image Filtering')
-        self.master.wm_minsize(700, 500)
-
+        self.master.wm_minsize(1000, 800)
 
 
         ################## TOP GRID ##################
@@ -39,13 +40,13 @@ class App(Frame):
 
         ################## LEFT GRID ##################
         left_grid = Frame(self.master)
-        effect_1_button = Button(left_grid, text="Clean Noises", command=None).grid(row=1, sticky=W)
+        effect_1_button = Button(left_grid, text="Clean Noises", command=lambda: self.execute_effct('Clean Noises')).grid(row=1, sticky=W)
         effect_2_button = Button(left_grid, text="Brightness", command=None).grid(row=2, sticky=W)
         effect_3_button = Button(left_grid, text="Color Filtering", command=None).grid(row=3, sticky=W)
         effect_4_button = Button(left_grid, text="Contrast", command=None).grid(row=4, sticky=W)
-        effect_5_button = Button(left_grid, text="Invert", command=None).grid(row=5, sticky=W)
+        effect_5_button = Button(left_grid, text="Invert", command=lambda: self.execute_effct('Invert')).grid(row=5, sticky=W)
         effect_6_button = Button(left_grid, text="Gamma Correction", command=None).grid(row=6, sticky=W)
-        effect_7_button = Button(left_grid, text="Sharpness", command=None).grid(row=7, sticky=W)
+        effect_7_button = Button(left_grid, text="Sharpness", command=lambda: self.execute_effct('Sharpness')).grid(row=7, sticky=W)
         effect_8_button = Button(left_grid, text="8", command=None).grid(row=8, sticky=W)
         left_grid.pack(side=LEFT)
 
@@ -57,23 +58,41 @@ class App(Frame):
         self.img_holder_label.pack()
 
 
-        #  define default image
-        # self.image_url = '/home/berlin/Desktop/Image-Filtering/images/f2.jpg'
-        # self.selected_image = PIL.Image.open(self.image_url).resize((100, 100))
-        # self.image = PIL.ImageTk.PhotoImage(self.selected_image)
-
-
-
-
 
     def browse_image(self):
 
         file_path = filedialog.askopenfilename()
         if file_path != "":
             self.image_handler = ImageHandler(file_path)
-            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image.resize((100, 100)))
+            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.original_image.resize((400, 300)))
+            # self.image_handler.image_copy = self.image_handler.original_image
             self.img_holder_label.config(image=self.view_img)
 
+
+
+    def open_execute_effct_window(self):
+        request_window = RequestWindow()
+        request_window.display('')
+
+
+
+    def execute_effct(self, effect):
+
+        if effect == 'Invert':
+            self.image_handler.image_copy = set_invert(self.image_handler.image_copy)
+        if effect == 'Sharpness':
+            self.image_handler.image_copy = set_invert(self.image_handler.image_copy)
+        if effect == 'Clean Noises':
+            self.image_handler.image_copy = self.image_handler.image_copy.convert('RGB')
+            self.image_handler.image_copy = clean_sp(self.image_handler.image_copy)
+
+        self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize((400, 300)))
+        self.img_holder_label.config(image=self.view_img)
+
+
+
+    def undo(self):
+        pass
 
 
 

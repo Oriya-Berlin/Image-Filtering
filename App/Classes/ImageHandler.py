@@ -9,15 +9,16 @@ class ImageHandler:
 
     def __init__(self, url):
         self.url = url
-        self.image = Image.open(url)
-        self.matrix = np.asarray(self.image, dtype='int32')
+        self.original_image = Image.open(url)
+        self.image_copy = self.original_image
+        self.matrix = np.asarray(self.original_image, dtype='int32')
         self.size = self.matrix.shape
         self.height = self.size[0]
         self.width = self.size[1]
         # TODO: we also need to add stack to the object, maybe we need to add that in separate class
 
-    def getImage(self):
-        return self.image
+    def get_original_image(self):
+        return self.original_image
 
     def getMatrix(self):
         return self.matrix
