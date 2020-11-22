@@ -23,7 +23,7 @@ def generate_gamma_correction(RGB_component, gamma_value):
 def set_gamma_correction(img, gamma_value=CONST_GAMMA):
 
     if gamma_value < 0:
-        raise Exception('gamma value must to be at greater or equal to 0.')
+        raise Exception('gamma value must to be greater or equal to 0.')
 
     matrix = np.asarray(img, dtype='int32')
     size = matrix.shape
@@ -39,10 +39,10 @@ def set_gamma_correction(img, gamma_value=CONST_GAMMA):
     generated_image = Image.fromarray(np.uint8(matrix))
     return generated_image
 
-'''
+'''  
 img_6 = Image.open('/home/berlin/PycharmProjects/Image Processing/images/dark.jpeg')
 img_6.show()
-corrected_image = set_gamma_correction(img_6, 5)
+corrected_image = set_gamma_correction(img_6, 1)
 corrected_image.show()
 '''
 

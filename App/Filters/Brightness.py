@@ -27,9 +27,9 @@ def set_brightness(img, brightness_value):
     return image
 
 
-'''
+'''   
 my_img = Image.open('/home/berlin/PycharmProjects/Image Processing/images/index.jpeg')
 my_img.show()
-bright_image = set_brightness(my_img, 60)
+bright_image = set_brightness(my_img, 200)
 bright_image.show()
 '''

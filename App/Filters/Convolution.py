@@ -219,17 +219,19 @@ def iterate_frame_matrix(original_matrix, kernel, height, width, new_matrix):
 
 
 # filters to choose
-filters = {'sharpen': [[0, -1, 0], [-1, 5, -1], [0, -1, 0]],
-           'blur': [[0.0625, 0.125, 0.0625], [0.125, 0.25, 0.125], [0.0625, 0.125, 0.0625]]}
+FILTERS = {'sharpen': [[0, -1, 0], [-1, 5, -1], [0, -1, 0]],
+           'blur': [[0.0625, 0.125, 0.0625], [0.125, 0.25, 0.125], [0.0625, 0.125, 0.0625]],
+           'outline': [[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]]
+           }
 
 
 #  this function will get filter(kernel matrix), and return, filtered image
 def image_filtering(img, filter):
 
-    if filter not in filters.keys():
-        raise Exception('filter must be one of: sharpen / blur')
+    if filter not in FILTERS.keys():
+        raise Exception('filter must be one of: sharpen / blur / outline')
     else:
-        filter = filters.get(filter)
+        filter = FILTERS.get(filter)
 
     original_matrix = np.asarray(img, dtype='int32')
     new_matrix = original_matrix.copy()

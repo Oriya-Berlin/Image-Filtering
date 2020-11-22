@@ -1,37 +1,63 @@
 from tkinter import *
+from tkinter import ttk
 
 
 class RequestWindow:
 
-    def __init__(self):
+    def __init__(self, effect):
         self.window = Tk()
         self.label = Label()
+        self.combo_box = ttk.Combobox()
         self.text_field = Entry()
-        self.execute_btn = Button()
-        self.user_value = ''
+        self.generate_button = Button()
+        self.user_value = None
+        self.label_text = ''
+        self.effect = effect
 
 
-    # TODO: maybe we need tu put this function to the constructor
-    def display(self, effect):
+    # TODO: maybe we need to put this function in the constructor
+    def display(self):
 
-        # TODO: here we need to put switch for efects and to add suitable instractions
-        self.window.wm_minsize(400, 300)
+        if self.effect == 'Brightness':
+            self.label_text = 'Please enter number greater then 0. \n NOTE: numbers overt then 200 could be too bright.'
+        if self.effect == 'Color Filtering':
+            self.label_text = 'Please choose color:'
+        if self.effect == 'Contrast':
+            self.label_text = 'Please enter number in range of -255 to 255:'
+        if self.effect == 'Gamma Correction':
+            self.label_text = 'Please enter number in range 0 - 1: \n NOTE: the recommended value is 0.45'
 
-        self.label = Label(self.window, text='dsfsffsdf')
-        self.text_field = Entry(self.window, font=('arial', 16, 'bold'), bd=2, width=8, justify=LEFT)
-        self.execute_btn = Button(self.window, text='hhh', command=lambda: self.get_user_value())
-
+        self.label = Label(self.window, text=self.label_text)
         self.label.pack()
-        self.text_field.pack()
-        self.execute_btn.pack()
 
+        if self.effect == 'Color Filtering':
+            self.combo_box = ttk.Combobox(self.window, values=['Red', 'Green', 'Blue'])
+            self.combo_box.pack()
+        else:
+            self.text_field = Entry(self.window, font=('arial', 16, 'bold'), bd=2, width=8, justify=LEFT)
+            self.text_field.pack()
+
+        self.generate_button = Button(self.window, text='Generate!', command=lambda: self.generate_btn())
+        self.generate_button.pack()
+
+        self.window.title('Window')
+        self.window.wm_minsize(400, 300)
         self.window.mainloop()
 
+        # if self.generate_btn():
+        #     print('sdfsdfadsfasdfsadfasf')
 
-    def get_user_value(self):
+
+    def generate_btn(self):
+        # self.window.quit()
+        if self.effect == 'Color Filtering':
+            self.user_value = self.combo_box.get()
+        else:
+            self.user_value = self.text_field.get()
         self.window.quit()
-        self.user_value = self.text_field.get()
-        return self.user_value
+
+        # return self.user_value
+
 
 #
 # s = RequestWindow()

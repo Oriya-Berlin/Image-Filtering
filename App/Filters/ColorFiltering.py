@@ -12,7 +12,7 @@ class Color(Enum):
 """
 
 
-colors = ('red', 'blue', 'green')
+colors = ('Red', 'Blue', 'Green')
 
 
 def color_filtering(img, color):
@@ -23,7 +23,7 @@ def color_filtering(img, color):
     if color not in colors:
         raise Exception(' You must to choose valid color: "red"/"green"/"blue" ')
 
-    if color == 'red':
+    if color == 'Red':
         for i in range(0, height):
             for j in range(0, width):
                 R = matrix[i][j][0]
@@ -31,7 +31,7 @@ def color_filtering(img, color):
                 B = 0
                 matrix[i][j] = [R, G, B]
 
-    if color == 'green':
+    if color == 'Green':
         for i in range(0, height):
             for j in range(0, width):
                 R = 0
@@ -39,7 +39,7 @@ def color_filtering(img, color):
                 B = 0
                 matrix[i][j] = [R, G, B]
 
-    if color == 'blue':
+    if color == 'Blue':
         for i in range(0, height):
             for j in range(0, width):
                 R = 0
@@ -50,19 +50,10 @@ def color_filtering(img, color):
     filtered_img = Image.fromarray(np.uint8(matrix))
     return filtered_img
 
+
 '''
 my_img = Image.open('/home/berlin/PycharmProjects/Image Processing/images/index.jpeg')
 new_image = color_filtering(my_img, 'green')
 new_image.show()
 '''
-
-
-
-
-
-
-
-
-
-
 
