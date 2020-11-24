@@ -15,6 +15,7 @@ class RequestWindow:
         self.effect = effect
 
 
+
     # TODO: maybe we need to put this function in the constructor
     def display(self):
 
@@ -22,7 +23,7 @@ class RequestWindow:
             self.label_text = 'Please enter number greater then 0. \n NOTE: numbers overt then 200 could be too bright.'
         if self.effect == 'Color Filtering':
             self.label_text = 'Please choose color:'
-        if self.effect == 'Contrast':
+        if self.effect == 'Contrast_1' or 'Contrast_2':
             self.label_text = 'Please enter number in range of -255 to 255:'
         if self.effect == 'Gamma Correction':
             self.label_text = 'Please enter number in range 0 - 1: \n NOTE: the recommended value is 0.45'
@@ -44,21 +45,20 @@ class RequestWindow:
         self.window.wm_minsize(400, 300)
         self.window.mainloop()
 
-        # if self.generate_btn():
-        #     print('sdfsdfadsfasdfsadfasf')
 
 
     def generate_btn(self):
-        # self.window.quit()
         if self.effect == 'Color Filtering':
             self.user_value = self.combo_box.get()
         else:
             self.user_value = self.text_field.get()
+            self.user_value = float(self.user_value)
+
         self.window.quit()
+        self.window.destroy()
 
-        # return self.user_value
 
 
-#
-# s = RequestWindow()
-# s.display('')
+    def get_user_value(self):
+        return self.user_value
+
