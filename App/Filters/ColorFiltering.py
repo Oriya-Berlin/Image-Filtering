@@ -2,16 +2,6 @@ import numpy as np
 from PIL import Image
 
 
-"""
-from enum import Enum
-
-class Color(Enum):
-    RED = 'red'
-    BLUE = 'blue'
-    GREEN = 'green'
-"""
-
-
 colors = ('Red', 'Blue', 'Green')
 
 

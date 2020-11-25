@@ -42,15 +42,6 @@ class Stack:
     def isEmpty(self):
         return self.size == 0
 
-    ######
-    def __str__(self):
-        current = self.head.next
-        output = ""
-        while current:
-            output += str(current.value) + "->"
-            current = current.next
-        return output[:-2]
-
 
     # ---- Getters & Setters ---- #
 
@@ -67,13 +58,3 @@ class Stack:
         self.node.value = value
 
 
-
-# my_stack = Stack()
-#
-# my_stack.push(2)
-# my_stack.push(4)
-# my_stack.push(6)
-# my_stack.push(8)
-#
-# print(my_stack)
-# print(my_stack.getSize())

@@ -19,7 +19,7 @@ from App.Classes.CreateStack import Stack
 
 class App(Frame):
 
-    # properties
+    #  main properties
     image_handler = None
     img_holder_label = None
     view_img = None

@@ -15,7 +15,6 @@ class ImageHandler:
         self.size = self.matrix.shape
         self.height = self.size[0]
         self.width = self.size[1]
-        # TODO: we also need to add stack to the object, maybe we need to add that in separate class
 
     def get_original_image(self):
         return self.original_image
