@@ -16,6 +16,7 @@ from App.Classes.ImageHandler import ImageHandler
 from App.Classes.CreateStack import Stack
 
 
+
 class App(Frame):
 
     # properties
@@ -32,31 +33,34 @@ class App(Frame):
 
         ################## TOP GRID ##################
         top_grid = Frame(self.master)
-        self.undo_button = Button(top_grid, text="Undo", command=lambda: self.undo_btn()) #.grid(row=1, column=4, sticky=W)  , state=DISABLED
-        self.undo_button.grid(row=1, column=4, sticky=W)
+        text = "  I didn't spend much time on the UI...  "
+        label = Label(top_grid, text=text, font="lucida 13 bold", bg="red")
+        label.grid(row=1, column=4, sticky=W)
         top_grid.pack(side=TOP)
 
 
         ################## BOTTOM GRID ##################
         bottom_grid = Frame(self.master)
-        browse_button = Button(bottom_grid, text="Browse...", command=lambda: self.browse_image()).grid(row=1, column=0, sticky=W)
-        save_button = Button(bottom_grid, text="Save", command=lambda: self.save_image()).grid(row=1, column=2, sticky=W)
-        exit_button = Button(bottom_grid, text="Exit", command=self.master.destroy).grid(row=1, column=3, sticky=W)
+        self.undo_button = Button(bottom_grid, text="Undo", width=15, command=lambda: self.undo_btn())
+        self.undo_button.grid(row=1, column=0, sticky=W)
+        browse_button = Button(bottom_grid, text="Browse...", width=15, command=lambda: self.browse_image()).grid(row=1, column=1, sticky=W)
+        save_button = Button(bottom_grid, text="Save", width=15, command=lambda: self.save_image()).grid(row=1, column=2, sticky=W)
+        exit_button = Button(bottom_grid, text="Exit", width=15, command=self.master.destroy).grid(row=1, column=3, sticky=W)
         bottom_grid.pack(side=BOTTOM)
 
 
         ################## LEFT GRID ##################
         left_grid = Frame(self.master)
-        effect_1_button = Button(left_grid, text="Clean Noises", command=lambda: self.execute_effect('Clean Noises')).grid(row=1, sticky=W)
-        effect_2_button = Button(left_grid, text="Brightness", command=lambda: self.open_execute_effect_window('Brightness')).grid(row=2, sticky=W)
-        effect_3_button = Button(left_grid, text="Color Filtering", command=lambda: self.open_execute_effect_window('Color Filtering')).grid(row=3, sticky=W)
-        effect_4_button = Button(left_grid, text="Contrast (1)", command=lambda: self.open_execute_effect_window('Contrast_1')).grid(row=4, sticky=W)
-        effect_5_button = Button(left_grid, text="Invert", command=lambda: self.execute_effect('Invert')).grid(row=5, sticky=W)
-        effect_6_button = Button(left_grid, text="Gamma Correction", command=lambda: self.open_execute_effect_window('Gamma Correction')).grid(row=6, sticky=W)
-        effect_7_button = Button(left_grid, text="Sharpness", command=lambda: self.execute_effect('Sharpness')).grid(row=7, sticky=W)
-        effect_8_button = Button(left_grid, text="Contrast (2)", command=lambda: self.open_execute_effect_window('Contrast_2')).grid(row=8, sticky=W)
-        effect_9_button = Button(left_grid, text="Blur", command=lambda: self.execute_effect('Blur')).grid(row=9, sticky=W)
-        effect_10_button = Button(left_grid, text="Outline", command=lambda: self.execute_effect('Outline')).grid(row=10, sticky=W)
+        effect_1_button = Button(left_grid, text="Clean Noises", width=15, command=lambda: self.execute_effect('Clean Noises')).grid(row=1, sticky=W)
+        effect_2_button = Button(left_grid, text="Brightness", width=15, command=lambda: self.open_execute_effect_window('Brightness')).grid(row=2, sticky=W)
+        effect_3_button = Button(left_grid, text="Color Filtering", width=15, command=lambda: self.open_execute_effect_window('Color Filtering')).grid(row=3, sticky=W)
+        effect_4_button = Button(left_grid, text="Contrast (1)", width=15, command=lambda: self.open_execute_effect_window('Contrast_1')).grid(row=4, sticky=W)
+        effect_5_button = Button(left_grid, text="Invert", width=15, command=lambda: self.execute_effect('Invert')).grid(row=5, sticky=W)
+        effect_6_button = Button(left_grid, text="Gamma Correction", width=15, command=lambda: self.open_execute_effect_window('Gamma Correction')).grid(row=6, sticky=W)
+        effect_7_button = Button(left_grid, text="Sharpness", width=15, command=lambda: self.execute_effect('Sharpness')).grid(row=7, sticky=W)
+        effect_8_button = Button(left_grid, text="Contrast (2)", width=15, command=lambda: self.open_execute_effect_window('Contrast_2')).grid(row=8, sticky=W)
+        effect_9_button = Button(left_grid, text="Blur", width=15, command=lambda: self.execute_effect('Blur')).grid(row=9, sticky=W)
+        effect_10_button = Button(left_grid, text="Outline", width=15, command=lambda: self.execute_effect('Outline')).grid(row=10, sticky=W)
         left_grid.pack(side=LEFT)
 
 
@@ -73,7 +77,7 @@ class App(Frame):
         file_path = filedialog.askopenfilename()
         if file_path != "":
             self.image_handler = ImageHandler(file_path)
-            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.original_image.resize((400, 300)))
+            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.original_image.resize((600, 480)))
             self.img_holder_label.config(image=self.view_img)
 
 
@@ -87,12 +91,9 @@ class App(Frame):
 
 
     def execute_effect(self, effect, user_value=None):
-        print('')
-        print('555555')
-        if not self.images_stack.isEmpty():
+
+        if self.images_stack.isEmpty():
             self.undo_button['state'] = 'normal'
-            print('666666')
-            # TODO: handle 92 line
             self.undo_button.configure()
 
         self.images_stack.push(self.image_handler.image_copy)
@@ -121,7 +122,7 @@ class App(Frame):
             self.image_handler.image_copy = set_gamma_correction(self.image_handler.image_copy, user_value)
 
 
-        self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize((400, 300)))
+        self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize((600, 480)))
         self.img_holder_label.config(image=self.view_img)
 
 
@@ -132,18 +133,20 @@ class App(Frame):
         else:
             self.image_handler.image_copy = self.images_stack.peek()
             self.images_stack.pop()
-            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize((400, 300)))
+            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize((600, 480)))
             self.img_holder_label.config(image=self.view_img)
 
 
 
     def save_image(self):
-        pass
+        file_path = filedialog.asksaveasfilename()
+        if file_path != "":
+            img = self.image_handler.image_copy
+            img.save(f'{file_path}.jpg')
 
 
 
+    def runApp(self):
+        self.master.mainloop()
 
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
 
