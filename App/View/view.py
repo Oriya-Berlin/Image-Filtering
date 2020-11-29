@@ -22,14 +22,19 @@ class App(Frame):
     #  main properties
     image_handler = None
     img_holder_label = None
-    view_img = None
+    view_img = None  # the image on the window
+    view_img_width = None
+    view_img_height = None
     images_stack = None
+
 
     def __init__(self):
         Frame.__init__(self)
         self.master.title('Image Filtering')
-        self.master.wm_minsize(1000, 800)
+        self.master.wm_maxsize(self.master.winfo_screenwidth(), self.master.winfo_screenheight())
+        self.master.wm_minsize(1250, 1000)
         self.images_stack = Stack()
+
 
         ################## TOP GRID ##################
         top_grid = Frame(self.master)
@@ -77,7 +82,15 @@ class App(Frame):
         file_path = filedialog.askopenfilename()
         if file_path != "":
             self.image_handler = ImageHandler(file_path)
-            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.original_image.resize((600, 480)))
+
+            # match image to window size if necessary
+            if self.image_handler.width > 1200 or self.image_handler.height > 940:
+                self.size_correction(self.image_handler.width, self.image_handler.height)
+            else:
+                self.view_img_width = self.image_handler.width
+                self.view_img_height = self.image_handler.height
+
+            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.original_image.resize((self.view_img_width, self.view_img_height)))
             self.img_holder_label.config(image=self.view_img)
 
 
@@ -122,7 +135,7 @@ class App(Frame):
             self.image_handler.image_copy = set_gamma_correction(self.image_handler.image_copy, user_value)
 
 
-        self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize((600, 480)))
+        self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize(self.view_img_width, self.view_img_heigh))
         self.img_holder_label.config(image=self.view_img)
 
 
@@ -133,7 +146,7 @@ class App(Frame):
         else:
             self.image_handler.image_copy = self.images_stack.peek()
             self.images_stack.pop()
-            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize((600, 480)))
+            self.view_img = PIL.ImageTk.PhotoImage(self.image_handler.image_copy.resize(self.view_img_width, self.view_img_heigh))
             self.img_holder_label.config(image=self.view_img)
 
 
@@ -148,5 +161,32 @@ class App(Frame):
 
     def runApp(self):
         self.master.mainloop()
+
+
+
+    def get_window_height(self):
+        return self.master.winfo_height()
+
+
+
+    def get_window_width(self):
+        return self.master.winfo_width()
+
+
+
+    def size_correction(self, width, height):
+
+        temp_width = width
+        temp_height = height
+        scaler = 1.0
+
+        while temp_width > 1200 or temp_height > 940:
+
+            if temp_width*scaler <= 1200 and temp_height*scaler <= 940:
+                self.view_img_width = int("%.0f" % (temp_width*scaler))
+                self.view_img_height = int("%.0f" % (temp_height*scaler))
+                return
+
+            scaler = float(scaler-0.01)
 
 
