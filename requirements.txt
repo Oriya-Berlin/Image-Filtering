@@ -1,5 +1,5 @@
 numpy==1.18.5
-Pillow==7.1.2
+Pillow==10.0.1
 tk==0.1.0
 typing-extensions==3.7.4.3
 
